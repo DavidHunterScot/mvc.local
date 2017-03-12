@@ -1,6 +1,6 @@
 <?php
 
-class Home extends Controller {
+class HomeController extends Controller {
 
 	public function index($name = '') {
 		// A simple Hello World program here.
