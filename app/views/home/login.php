@@ -2,15 +2,19 @@
 
 $form = $data['form'];
 
+echo "<div style=\"max-width: 400px; margin: auto;\">";
+
 if( $data['result'] ) {
 	echo "<p><b>Result:</b> " . $data['result'] . "</p>";
 }
 
-//echo $form->generateHtml();
+echo $form->generateHtml();
+
+echo "</div>";
 
 //echo "<pre>" . print_r($form, true) . "</pre>";
 
-
+/*
 ?>
 
 <form method="<?php echo $form->getMethod(); ?>" action="<?php echo $form->getAction(); ?>">
@@ -20,7 +24,7 @@ if( $data['result'] ) {
 </form>
 
 <?php
-
+*/
 
 
 ?>

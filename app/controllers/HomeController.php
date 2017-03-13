@@ -50,19 +50,31 @@ class HomeController extends Controller {
 
 		// Create an Email Field with the name "login-email",
 		$email = new EmailField("login-email");
+		// set it's class
+		$email->setClass("form-control");
 		// mark it as required,
 		$email->setRequired(true);
 		// set it's label,
 		$email->setLabel("E-mail:");
+		// set the HTML to appear before the field,
+		$email->setBeforeHtml("<div class=\"form-group\">");
+		// set the HTML to appear after the field,
+		$email->setAfterHtml("</div>");
 		// and add it to the form we created earlier.
 		$form->addField($email);
 
 		// Create a Password Field with the name "login-password",
 		$password = new PasswordField("login-password");
+		// set it's class
+		$password->setClass("form-control");
 		// mark it as required,
 		$password->setRequired(true);
 		// set it's label,
 		$password->setLabel("Password:");
+		// set the HTML to appear before the field,
+		$password->setBeforeHtml("<div class=\"form-group\">");
+		// set the HTML to appear after the field,
+		$password->setAfterHtml("</div>");
 		// and add it to the form we created earlier.
 		$form->addField($password);
 
@@ -101,7 +113,7 @@ class HomeController extends Controller {
 		}
 
 		// Render our view and pass to it the instance of our form, and the form submission result.
-		$this->view('home/login', ['form' => $form, 'result' => $result]);
+		$this->view('home/login', ['header-view' => 'home/header', 'footer-view' => 'home/footer', 'form' => $form, 'result' => $result]);
 	}
 
 }

@@ -73,6 +73,7 @@ class Form {
 			$html .= ">";
 			
 			foreach ( $this->fields as $field ) {
+				$html .= $field->getBeforeHtml();
 				if( $field->getLabel() && $field->getId() ) {
 					$html .= "<label for=\"" . $field->getId() . "\">" . $field->getLabel() . "</label> ";
 				}
@@ -85,6 +86,7 @@ class Form {
 				if( !$field instanceof PasswordField && $field->getValue() ) $html .= " value=\"" . $field->getValue() . "\"";
 				
 				$html .= " />";
+				$html .= $field->getAfterHtml();
 			}
 
 			$html .= "<button type=\"submit\">Submit</button> <button type=\"reset\">Clear</button>";

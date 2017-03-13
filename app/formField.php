@@ -2,7 +2,7 @@
 
 class FormField {
 
-	private $type, $name, $id, $class, $value, $required = false, $label;
+	private $type, $name, $id, $class, $value, $required = false, $label, $beforeHtml = "", $afterHtml = "";
 
 	protected function setType($type) { $this->type = $type; }
 	protected function setName($name) { $this->name = $name; }
@@ -12,6 +12,8 @@ class FormField {
 	public function setValue($value) { $this->value = $value; }
 	public function setRequired($required) { $this->required = is_bool($required) ? $required : false; }
 	public function setLabel($label) { $this->label = $label; }
+	public function setBeforeHtml($beforeHtml) { $this->beforeHtml = $beforeHtml; }
+	public function setAfterHtml($afterHtml) { $this->afterHtml = $afterHtml; }
 
 	public function getType() { return $this->type; }
 	public function getName() { return $this->name; }
@@ -20,6 +22,8 @@ class FormField {
 	public function getValue() { return $this->value; }
 	public function isRequired() { return $this->required; }
 	public function getLabel() { return $this->label; }
+	public function getBeforeHtml() { return $this->beforeHtml; }
+	public function getAfterHtml() { return $this->afterHtml; }
 
 }
 
