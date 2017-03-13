@@ -45,6 +45,24 @@ class Form {
 		return false;
 	}
 
+	public function isValid() {
+		if ( is_array( $this->fields ) && count( $this->fields ) >= 1 ) {
+			foreach ( $this->fields as $field ) {
+				if( $field->isRequired() ) {
+					if( $this->method == "POST" ) {
+						if( !isset( $_POST[ $field->getName() ] ) || empty( $_POST[ $field->getName() ] ) )
+							return false;
+					} else {
+						if( !isset( $_GET[ $field->getName() ] ) || empty( $_GET[ $field->getName() ] ) )
+							return false;
+					}
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
 	public function generateHTML() {
 		if ( is_array( $this->fields ) && count( $this->fields ) >= 1 ) {
 			$html = "<form";
@@ -63,6 +81,7 @@ class Form {
 				if( $field->getName() ) $html .= " name=\"" . $field->getName() . "\"";
 				if( $field->getId() ) $html .= " id=\"" . $field->getId() . "\"";
 				if( $field->getClass() ) $html .= " class=\"" . $field->getClass() . "\"";
+				if( $field->isRequired() ) $html .= " required=\"required\"";
 				if( !$field instanceof PasswordField && $field->getValue() ) $html .= " value=\"" . $field->getValue() . "\"";
 				
 				$html .= " />";

@@ -50,6 +50,8 @@ class HomeController extends Controller {
 
 		// Create an Email Field with the name "login-email",
 		$email = new EmailField("login-email");
+		// mark it as required,
+		$email->setRequired(true);
 		// set it's label,
 		$email->setLabel("E-mail:");
 		// and add it to the form we created earlier.
@@ -57,6 +59,8 @@ class HomeController extends Controller {
 
 		// Create a Password Field with the name "login-password",
 		$password = new PasswordField("login-password");
+		// mark it as required,
+		$password->setRequired(true);
 		// set it's label,
 		$password->setLabel("Password:");
 		// and add it to the form we created earlier.
@@ -66,9 +70,8 @@ class HomeController extends Controller {
 		$result = "";
 
 		// Check if the form has been submitted.
-		if( $form->isSubmitted() ) {
-			// Form has been submited, set a default result as "Invalid"
-			$result = "Invalid";
+		if( $form->isSubmitted() && $form->isValid() ) {
+			// Form has been submited.
 
 			// In order to access the database instance that exists in our init.php file,
 			// we need to define the variable as global.
@@ -87,8 +90,14 @@ class HomeController extends Controller {
 				if( $user['password'] == $password->getValue() ) {
 					// Password is a match, so let's change the result to "Verified".
 					$result = "Verified";
+				} else {
+					$result = "Incorrect E-mail and/or Password";
 				}
+			} else {
+				$result = "Incorrect E-mail and/or Password";
 			}
+		} else if( $form->isSubmitted() && !$form->isValid() ) {
+			$result = "Missing Required Fields";
 		}
 
 		// Render our view and pass to it the instance of our form, and the form submission result.
