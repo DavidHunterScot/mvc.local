@@ -42,12 +42,17 @@ class HomeController extends Controller {
 			"joe@email.com" => "password"
 		];
 
+		// Mark the $routing variable as global so we can access
+		// the variable located outside the method.
+		global $routing;
+
 		// Start creating the form.
 		$form = new Form;
 		// Set the form's method attribute,
 		$form->setMethod("POST");
-		// and the action attribute.
-		$form->setAction("./login");
+		// and the action attribute. Here we use the url() method from
+		// the routing class to generate a full URL to the login route.
+		$form->setAction($routing->url('login'));
 
 		// Create an Email Field with the name "login-email",
 		$email = new EmailField("login-email");

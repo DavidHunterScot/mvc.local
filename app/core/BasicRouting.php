@@ -40,10 +40,21 @@ class BasicRouting {
 		global $config;
 
 		if( $this->check($name) ) {
-			$route = $this->routes[$name]['path'];
+			$route = $this->routes[$name]['route'];
 			header("Location: " . $config->getSiteRootURL() . "/" . $route);
 			exit;
 		}
+		return false;
+	}
+
+	public function url($name) {
+		global $config;
+
+		if( $this->check($name) ) {
+			$route = $this->routes[$name]['route'];
+			return $config->getSiteRootURL() . '/' . $route;
+		}
+		return false;
 	}
 
 }
