@@ -8,6 +8,9 @@ class BasicRouting {
 
 	private $routes = [];
 
+	/*
+	 * Registers a route.
+	 */
 	public function register($name, $route, $callable) {
 		if( !is_string($name) ) return false;
 		if( !is_string($route) ) return false;
@@ -16,6 +19,9 @@ class BasicRouting {
 		$this->routes[$name] = ['route' => ltrim($route, '/'), 'callable' => $callable];
 	}
 
+	/*
+	 * Checks if a route exists.
+	 */
 	public function check($route) {
 		if( count( $this->routes ) >= 1 ) {
 			foreach ($this->routes as $routeName => $routeInfo) {
@@ -26,6 +32,9 @@ class BasicRouting {
 		return false;
 	}
 
+	/*
+	 * Gets the requested route information if it exists.
+	 */
 	public function get($route) {
 		if( count( $this->routes ) >= 1 ) {
 			foreach ($this->routes as $routeName => $routeInfo) {
@@ -36,6 +45,9 @@ class BasicRouting {
 		return false;
 	}
 
+	/*
+	 * Redirects to the requested route if it exists.
+	 */
 	public function redirect($name) {
 		global $config;
 
@@ -47,6 +59,9 @@ class BasicRouting {
 		return false;
 	}
 
+	/*
+	 * Generates a full site URL to the requested route if it exists.
+	 */
 	public function url($name) {
 		global $config;
 
