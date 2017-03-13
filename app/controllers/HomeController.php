@@ -11,7 +11,7 @@ class HomeController extends Controller {
 		$user->name = $name;
 		
 		// Render the view passing to it the name as set in the model.
-		$this->view('home/index', ['name' => $user->name]);
+		$this->view('home/index', ['header-view' => 'home/header', 'footer-view' => 'home/footer', 'name' => $user->name]);
 	}
 
 	public function users() {
@@ -32,7 +32,7 @@ class HomeController extends Controller {
 
 		// Now render the view and pass to it our matches from the database in the form of the
 		// $users variable.
-		$this->view('home/users', ['users' => $users]);
+		$this->view('home/users', ['header-view' => 'home/header', 'footer-view' => 'home/footer', 'users' => $users]);
 	}
 
 	public function login() {

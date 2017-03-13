@@ -65,7 +65,7 @@ class BasicRouting {
 	public function url($name) {
 		global $config;
 
-		if( $this->check($name) ) {
+		if( array_key_exists($name, $this->routes) ) {
 			$route = $this->routes[$name]['route'];
 			return $config->getSiteRootURL() . '/' . $route;
 		}
