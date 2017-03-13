@@ -36,12 +36,6 @@ class HomeController extends Controller {
 	}
 
 	public function login() {
-		// Define a couple of accounts for testing purposes.
-		$accounts = [
-			"david@email.com" => "letmein",
-			"joe@email.com" => "password"
-		];
-
 		// Mark the $routing variable as global so we can access
 		// the variable located outside the method.
 		global $routing;
@@ -75,10 +69,22 @@ class HomeController extends Controller {
 		if( $form->isSubmitted() ) {
 			// Form has been submited, set a default result as "Invalid"
 			$result = "Invalid";
-			// Check if the provided email address matches one of the accounts we created earlier.
-			if( array_key_exists($email->getValue(), $accounts) ) {
+
+			// In order to access the database instance that exists in our init.php file,
+			// we need to define the variable as global.
+			global $database;
+
+			// Connect to the database.
+			$database->connect();
+			
+			// Query the database for and select the user matching the provided email address.
+			// We need to set the index of 0 here as we are only interested in the first result.
+			$user = $database->select(['*'], 'users', ['email' => $email->getValue()])[0];
+
+			// Check if the provided email address matches a user in the database.
+			if( isset($user['email']) && $user['email'] == $email->getValue() ) {
 				// It does match, lets check if the provided password is also a match.
-				if( $accounts[ $email->getValue() ] == $password->getValue() ) {
+				if( $user['password'] == $password->getValue() ) {
 					// Password is a match, so let's change the result to "Verified".
 					$result = "Verified";
 				}
