@@ -46,6 +46,42 @@ class BasicRouting {
 	}
 
 	/*
+	 * Returns an array of registerd routes.
+	 * If you pass a controller instance as a parameter,
+	 * it will match only the routes that use an instance of that controller.
+	 */
+	public function getAll($controller = null) {
+		// Has the $controller parameter been provided?
+		if( $controller ) {
+			// Is it a valid Controller instance?
+			if( $controller instanceof Controller ) {
+				// A valid controller instance has been provided.
+
+				// Create an empty array to hold the routes.
+				$routes = [];
+
+				// Loop through all registered routes.
+				foreach ($this->routes as $routeName => $routeInfo) {
+					// Check if the current route's callable action class instance is
+					// an instance of the same controller class as the requested.
+					if( $routeInfo['callable'][0] == $controller ) {
+						// It is, let's add it to our routes array for later.
+						$routes[$routeName] = $routeInfo;
+					}
+				}
+				// After we have looped through the routes, and picked out those that match,
+				// return the array of matched routes.
+				return $routes;
+			}
+			// The provided controller parameter is not a valid controller instance.
+			// Return an empty array.
+			return [];
+		}
+		// No controller parameter was provided, return all registered routes.
+		return $this->routes;
+	}
+
+	/*
 	 * Redirects to the requested route if it exists.
 	 */
 	public function redirect($name) {

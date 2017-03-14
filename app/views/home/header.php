@@ -14,4 +14,29 @@
 
 	<body>
 
+		<header>
+			<div class="container">
+				<h1>mvc.local <small>A web-based application built using an MVC-style framework.</small></h1>
+				<nav>
+					<?php 
+
+					global $routing;
+
+					$routes = $routing->getAll(new HomeController);
+
+					$routesOutput = "";
+
+					foreach ($routes as $routeName => $routeInfo) {
+						$routesOutput .= "<a href=\"" . $routing->url( $routeName ) . "\">" . ucwords( str_replace(['/', '-', '_'], " ", $routeName) ) . "</a> | ";
+					}
+
+					$routesOutput = substr($routesOutput, 0, -3);
+
+					echo $routesOutput;
+
+					?>
+				</nav>
+			</div>
+		</header>
+
 		<div class="container">
